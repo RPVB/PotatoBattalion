@@ -98,7 +98,7 @@ body{
 @media (max-width: 599px) {
 
     #spritz_holder{
-        width: 320
+        width: 320px;
         padding-top: 4px;
         padding-bottom: 6px;
         margin-bottom: 6px;
