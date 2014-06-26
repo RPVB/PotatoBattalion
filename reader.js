@@ -50,7 +50,7 @@ function getData(url, callback){
 }
 
 function sendToSpritz(data){
-	console.log(data);
+	create_spritz(data);
 }
 
 function validUrl(str) {
