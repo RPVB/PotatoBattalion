@@ -28,21 +28,29 @@ function hookOnLinks(links){
 
 function hover(event){
 	var target = event.target;
-	
-	data = getData(target.getAttribute("href"));
-	sendToSpritz(data);
-
+	getData(target.getAttribute("href"),function(data){
+		sendToSpritz(data);
+	});
 }
 function stopHover(target){
 
 }
 
-function getData(){
+function getData(url,callback){
+
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(callback) {
+	    if (xhr.readyState == 4) {
+	        callback(xhr.responseText);
+	    }
+	}.bind(null, callback)
+	xhr.open('GET', url, true);
+	xhr.send(null);
 
 }
 
 function sendToSpritz(){
-
+	console.log(data);
 }
 
 function validUrl(str) {
