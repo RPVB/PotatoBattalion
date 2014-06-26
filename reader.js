@@ -36,7 +36,7 @@ function stopHover(target){
 
 }
 
-function getData(url,callback){
+function getData(url, callback){
 
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(callback) {
@@ -44,12 +44,12 @@ function getData(url,callback){
 	        callback(xhr.responseText);
 	    }
 	}.bind(null, callback)
-	xhr.open('GET', url, true);
+	xhr.open('GET', 'load.php?url='+url, true);
 	xhr.send(null);
 
 }
 
-function sendToSpritz(){
+function sendToSpritz(data){
 	console.log(data);
 }
 
