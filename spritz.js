@@ -7,9 +7,9 @@
 var readability_token = '172b057cd7cfccf27b60a36f16b1acde12783893';
 var diffbot_token = '2efef432c72b5a923408e04353c39a7c';
 
-function create_spritz(){
+function create_spritz(text){
 
-     spritz_loader = function() {
+     spritz_loader = function(text) {
         //getURL("https://rawgithub.com/Miserlou/OpenSpritz/master/spritz.html", function(data){
 
         //getURL("https://rawgithub.com/Miserlou/OpenSpritz/dev/spritz.html", function(data){
@@ -35,12 +35,12 @@ function create_spritz(){
 
             document.getElementById("spritz_selector").addEventListener("change", function(e) {
                 clearTimeouts();
-                spritz();
+                spritz(text);
             });
         });
     };
 
-    spritz_loader();
+    spritz_loader(text);
 }
 
 function getURL(url, callback) {
@@ -64,20 +64,20 @@ function hide_spritz(){
 
 // Entry point to the beef.
 // Gets the WPM and the selected text, if any.
-function spritz(){
+function spritz(text){
 
     var wpm = parseInt(document.getElementById("spritz_selector").value, 10);
     if(wpm < 1){
         return;
     }
 
-    var selection = getSelectionText();
-    if(selection){
-        spritzify(selection);
-    }
-    else{
-        spritzifyURL();
-    }
+//    var selection = getSelectionText();
+//    if(selection){
+        spritzify(text);
+//    }
+//    else{
+//        spritzifyURL();
+//    }
 }
 
 // The meat!
@@ -238,11 +238,8 @@ function pivot(word){
 // Get the currently selected text, if any.
 // Shameless pinched from StackOverflow.
 function getSelectionText() {
-    var text = "";
-    
-    text = document.getElementById("intro").innerHTML;
-       return text;
-    
+   
+
 }
 
 // Uses the Readability API to get the juicy content of the current page.
