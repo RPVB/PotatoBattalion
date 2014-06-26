@@ -36,11 +36,21 @@ function stopHover(target){
 
 }
 
+
+var fetchedData = {};
+
 function getData(url, callback){
+
+	if(url in fetchedData){
+		callback(fetchedData[url])
+		return;
+	}
+
 
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(callback) {
 	    if (xhr.readyState == 4) {
+	    	fetchedData[url] = xhr.responseText;
 	        callback(xhr.responseText);
 	    }
 	}.bind(null, callback)
