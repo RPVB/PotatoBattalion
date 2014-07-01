@@ -191,6 +191,20 @@ function spritzify(input){
         }, ms_per_word));
     }
 
+
+    function stopHover(event){
+        if(event.target.id == "spritz_holder" && event.toElement.id != "spritz_toggle" && event.toElement.id != "spritz_result"){
+
+            for(var i = 0; i < spritz_timers.length; i++) {
+                clearTimeout(spritz_timers[i]);
+            }
+
+            running = false;
+            clearTimeouts();
+            document.getElementById("spritz_holder").remove();
+        }
+    }
+
     function stopSpritz() {
         for(var i = 0; i < spritz_timers.length; i++) {
             clearTimeout(spritz_timers[i]);
