@@ -7,6 +7,16 @@
 var readability_token = '172b057cd7cfccf27b60a36f16b1acde12783893';
 var diffbot_token = '2efef432c72b5a923408e04353c39a7c';
 
+
+var mouseX;
+var mouseY;
+window.onmousemove = handleMouseMove;
+function handleMouseMove(event) {
+    event = event || window.event; // IE-ism
+    mouseX =  event.clientX;
+    mouseY =   event.clientY;
+}
+
 function create_spritz(text){
 
      spritz_loader = function(text) {
@@ -32,6 +42,10 @@ function create_spritz(text){
                 document.body.insertBefore(ele, document.body.firstChild);
                 document.getElementById("spritz_toggle").style.display = "none";
             };
+
+            var spritzHolder = document.getElementById("spritz_holder");
+            spritzHolder.style.top = mouseY+"px";
+            spritzHolder.style.left = mouseX+"px";
 
             document.getElementById("spritz_selector").addEventListener("change", function(e) {
                 clearTimeouts();
