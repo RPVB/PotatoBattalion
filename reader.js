@@ -21,7 +21,6 @@ function hookOnLinks(links){
 		if(validUrl(url)){
 			targets.push({"dom":link,"url":url});	
 			link.addEventListener("mouseover", hover, false);
-			link.addEventListener("mouseout", stopHover, false);	
 		}
 	}
 }
@@ -32,7 +31,14 @@ function hover(event){
 		sendToSpritz(data);
 	});
 }
-function stopHover(target){
+function stopHover(event){
+
+
+	console.log(event);
+
+	if(event.target.id == "spritz_holder"){
+		document.getElementById("spritz_holder").remove();
+	}
 
 }
 

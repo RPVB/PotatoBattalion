@@ -12,9 +12,9 @@ var mouseX;
 var mouseY;
 window.onmousemove = handleMouseMove;
 function handleMouseMove(event) {
-    event = event || window.event; // IE-ism
-    mouseX =  event.clientX;
-    mouseY =   event.clientY;
+    event = event || window.event; // IE-is
+    mouseX =  event.pageX;
+    mouseY =   event.pageY;
 }
 
 function create_spritz(text){
@@ -44,8 +44,11 @@ function create_spritz(text){
             };
 
             var spritzHolder = document.getElementById("spritz_holder");
-            spritzHolder.style.top = mouseY+"px";
-            spritzHolder.style.left = mouseX+"px";
+            spritzHolder.style.top = mouseY-10+"px";
+            spritzHolder.style.left = mouseX-10+"px";
+
+
+            spritzHolder.addEventListener("mouseout", stopHover, false);    
 
             document.getElementById("spritz_selector").addEventListener("change", function(e) {
                 clearTimeouts();
