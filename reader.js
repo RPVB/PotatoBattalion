@@ -32,11 +32,8 @@ function hover(event){
 	});
 }
 function stopHover(event){
-
-
-	console.log(event);
-
-	if(event.target.id == "spritz_holder"){
+	
+	if(event.target.id == "spritz_holder" && event.toElement.id != "spritz_toggle" && event.toElement.id != "spritz_result"){
 		document.getElementById("spritz_holder").remove();
 	}
 

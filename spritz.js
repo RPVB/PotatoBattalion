@@ -50,10 +50,10 @@ function create_spritz(text){
 
             spritzHolder.addEventListener("mouseout", stopHover, false);    
 
-            document.getElementById("spritz_selector").addEventListener("change", function(e) {
-                clearTimeouts();
+            /*document.getElementById("spritz_selector").addEventListener("change", function(e) {
+                clearTimeouts();*/
                 spritz(text);
-            });
+           // });
         });
     };
 
@@ -83,7 +83,7 @@ function hide_spritz(){
 // Gets the WPM and the selected text, if any.
 function spritz(text){
 
-    var wpm = parseInt(document.getElementById("spritz_selector").value, 10);
+    var wpm = parseInt("600", 10);
     if(wpm < 1){
         return;
     }
@@ -100,7 +100,7 @@ function spritz(text){
 // The meat!
 function spritzify(input){
 
-    var wpm = parseInt(document.getElementById("spritz_selector").value, 10);
+    var wpm = parseInt("600", 10);
     var ms_per_word = 60000/wpm;
 
     // Split on any spaces.
