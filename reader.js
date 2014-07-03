@@ -2,6 +2,7 @@ console.log("test");
 
 
 var targets = [] // holds links
+var spritzObject = false;
 
 window.onload = function(){
 	findLinks();
@@ -31,13 +32,6 @@ function hover(event){
 		sendToSpritz(data);
 	});
 }
-function stopHover(event){
-	
-	if(event.target.id == "spritz_holder" && event.toElement.id != "spritz_toggle" && event.toElement.id != "spritz_result"){
-		document.getElementById("spritz_holder").remove();
-	}
-
-}
 
 
 var fetchedData = {};
@@ -63,7 +57,12 @@ function getData(url, callback){
 }
 
 function sendToSpritz(data){
-	create_spritz(data);
+	create_spritz(data, function(spritz){
+
+		var spritzHolder = document.getElementById("spritz_holder");
+		spritzHolder.addEventListener("mouseout", spritz.stopHover, false); 
+		
+	});
 }
 
 function validUrl(str) {

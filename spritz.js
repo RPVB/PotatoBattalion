@@ -4,9 +4,10 @@
 // https://github.com/Miserlou/OpenSpritz
 
 // Please don't abuse this.
+
 var readability_token = '172b057cd7cfccf27b60a36f16b1acde12783893';
 var diffbot_token = '2efef432c72b5a923408e04353c39a7c';
-
+var spritz_timers = new Array();
 
 var mouseX;
 var mouseY;
@@ -17,47 +18,28 @@ function handleMouseMove(event) {
     mouseY =   event.pageY;
 }
 
-function create_spritz(text){
+function create_spritz(text, callback){
+        
+    getURL("spritz.html", function(text, callback, data){
 
-     spritz_loader = function(text) {
-        //getURL("https://rawgithub.com/Miserlou/OpenSpritz/master/spritz.html", function(data){
+        var spritzContainer = document.getElementById("spritz_container");
 
-        //getURL("https://rawgithub.com/Miserlou/OpenSpritz/dev/spritz.html", function(data){
+        if (!spritzContainer) {
+            var ele = document.createElement("div");
+            data = data.replace(/(\r\n|\n|\r)/gm,"");
+            ele.innerHTML = data;
+            document.body.insertBefore(ele, document.body.firstChild);
+            document.getElementById("spritz_toggle").style.display = "none";
+        };
 
-        // This won't work in Firefox because an old bug and won't work in Chrome because of security stuff:
-        //getURL("spritz.html", function(data){
+        var spritzHolder = document.getElementById("spritz_holder");
+        spritzHolder.style.top = mouseY-10+"px";
+        spritzHolder.style.left = mouseX-10+"px";
 
-        //getURL("https://rawgithub.com/Miserlou/OpenSpritz/dev/spritz.html", function(data){
+        clearSpritzTimers();
+        callback(new SpritzObject(text));
 
-        // RawGit's CDN usage:
-        // "Since files are not refreshed after the first request,
-        // it's best to use a specific tag or commit URL, not a branch URL."
-        getURL("spritz.html", function(data){
-            var spritzContainer = document.getElementById("spritz_container");
-
-            if (!spritzContainer) {
-                var ele = document.createElement("div");
-                data = data.replace(/(\r\n|\n|\r)/gm,"");
-                ele.innerHTML = data;
-                document.body.insertBefore(ele, document.body.firstChild);
-                document.getElementById("spritz_toggle").style.display = "none";
-            };
-
-            var spritzHolder = document.getElementById("spritz_holder");
-            spritzHolder.style.top = mouseY-10+"px";
-            spritzHolder.style.left = mouseX-10+"px";
-
-
-            spritzHolder.addEventListener("mouseout", stopHover, false);    
-
-            /*document.getElementById("spritz_selector").addEventListener("change", function(e) {
-                clearTimeouts();*/
-                spritz(text);
-           // });
-        });
-    };
-
-    spritz_loader(text);
+    }.bind(null, text, callback));
 }
 
 function getURL(url, callback) {
@@ -79,29 +61,8 @@ function hide_spritz(){
     document.getElementById("spritz_holder").style.display = "none";
 }
 
-// Entry point to the beef.
-// Gets the WPM and the selected text, if any.
-function spritz(text){
 
-    var wpm = parseInt("600", 10);
-    if(wpm < 1){
-        return;
-    }
-
-//    var selection = getSelectionText();
-//    if(selection){
-        spritzify(text);
-//    }
-//    else{
-//        spritzifyURL();
-//    }
-}
-
-// The meat!
-function spritzify(input){
-
-    var wpm = parseInt("600", 10);
-    var ms_per_word = 60000/wpm;
+function spritz_parseInput(input){
 
     // Split on any spaces.
     var all_words = input.split(/\s+/);
@@ -154,9 +115,23 @@ function spritzify(input){
 
     all_words = temp_words.slice(0);
 
+    return all_words
+}
+
+// The meat!
+SpritzObject = function spritzify(input){
+
+
+    var spritzHolder = document.getElementById("spritz_holder");
+    spritzHolder.addEventListener("mouseout", stopHover, false); 
+
+    var wpm = parseInt("600", 10);
+    var ms_per_word = 60000/wpm;
+
+    var all_words = spritz_parseInput(input);
+
     var currentWord = 0;
     var running = true;
-    var spritz_timers = new Array();
 
     document.getElementById("spritz_toggle").addEventListener("click", function() {
         if(running) {
@@ -193,17 +168,18 @@ function spritzify(input){
 
 
     function stopHover(event){
+
         if(event.target.id == "spritz_holder" && event.toElement.id != "spritz_toggle" && event.toElement.id != "spritz_result"){
 
-            for(var i = 0; i < spritz_timers.length; i++) {
-                clearTimeout(spritz_timers[i]);
-            }
+
+            clearSpritzTimers();
 
             running = false;
             clearTimeouts();
             document.getElementById("spritz_holder").remove();
         }
     }
+
 
     function stopSpritz() {
         for(var i = 0; i < spritz_timers.length; i++) {
@@ -215,6 +191,21 @@ function spritzify(input){
     }
 
     startSpritz();
+}
+
+function clearSpritzTimers(){
+
+    console.log(spritz_timers);
+
+    spritz_timers.forEach(function(timer){
+
+        console.log(timer);
+
+        clearInterval(timer);
+        
+        var index = spritz_timers.indexOf(timer);
+        spritz_timers = spritz_timers.splice(index, 1);
+    });  
 }
 
 // Find the red-character of the current word.
