@@ -25,7 +25,7 @@ body{
 }
 
 #spritz_result{
-    text-align: center;
+    text-align: left;
     font-family: 'Droid Sans Mono', sans-serif;
     /* 600px+; small tablet portrait */
     padding-top: 9px;
@@ -35,7 +35,7 @@ body{
 }
 
 #guide_top, #guide_bottom{
-    text-align: center;
+    text-align: left;
     font-family: 'Droid Sans Mono', sans-serif;
     color: #dddddd;
     /* 600px+; small tablet portrait */
@@ -43,7 +43,7 @@ body{
 }
 
 #notch{
-    text-align: center;
+    text-align: left;
     font-family: 'Droid Sans Mono', sans-serif;
     color: #dddddd;    
     /* 600px+; small tablet portrait */
@@ -77,7 +77,7 @@ body{
 
 .start, .pivot, .end, .spritz_start, .spritz_pivot, .spritz_end{
     color: #333333;
-    text-align: center;
+    text-align: left;
     font-family: 'Droid Sans Mono', sans-serif;
     /* 600px+; small tablet portrait */
     font-size: 32px;

@@ -166,7 +166,6 @@ SpritzObject = function spritzify(input){
         }, ms_per_word));
     }
 
-
     function stopHover(event){
 
         if(event.target.id == "spritz_holder" && event.toElement.id != "spritz_toggle" && event.toElement.id != "spritz_result"){
@@ -179,7 +178,6 @@ SpritzObject = function spritzify(input){
             document.getElementById("spritz_holder").remove();
         }
     }
-
 
     function stopSpritz() {
         for(var i = 0; i < spritz_timers.length; i++) {
@@ -202,7 +200,7 @@ function clearSpritzTimers(){
         console.log(timer);
 
         clearInterval(timer);
-        
+
         var index = spritz_timers.indexOf(timer);
         spritz_timers = spritz_timers.splice(index, 1);
     });  
