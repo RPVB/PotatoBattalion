@@ -32,6 +32,7 @@ body{
     padding-bottom: 9px;
     min-height: 40px;
     font-size: 32px;
+    padding-left: -20px;
 }
 
 #guide_top, #guide_bottom{
@@ -85,6 +86,16 @@ body{
 .pivot, .spritz_pivot{
     color: #de0000;
 }
+
+#spritz_link{
+    border-style: none;
+    text-decoration: none;
+}
+#spritz_link:active{
+    color:black;
+    border-style: none;
+}
+
 
 @media (max-width: 599px) {
 
